@@ -1,7 +1,6 @@
 # Build: docker build -t commonsmachinery/buildmaster .
 
-# TODO: switch this to our own Ubuntu 14.04 LTS image when that is available
-FROM dockerfile/ubuntu
+FROM commonsmachinery/ubuntu
 
 # Create the same user as the data image does
 RUN /usr/sbin/groupadd -g 3001 buildmaster

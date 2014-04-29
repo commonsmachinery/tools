@@ -1,11 +1,15 @@
 # Build: docker build -t commonsmachinery/buildslave .
 
-# TODO: switch this to our own Ubuntu 14.04 LTS image when that is
-# available, but for now basing this on a nodejs image is just fine
-FROM dockerfile/nodejs
+FROM commonsmachinery/ubuntu
+
+# Use upstream package where node has the right name and includes npm
+# and all dev files.
+RUN add-apt-repository -y ppa:chris-lea/node.js
+RUN apt-get update
 
 # We need a bunch of stuff to build and run test cases
 RUN apt-get install -y \
+    nodejs \
     python-pip \
     python-dev \
     python-virtualenv \
