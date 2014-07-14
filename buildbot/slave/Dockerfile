@@ -17,10 +17,8 @@ RUN apt-get install -y \
     autoconf \
     automake \
     libtool \
-    swig \
-    redland-utils \
-    librdf0-dev \
-    librdf-storage-sqlite
+    libzmq3 \
+    libzmq3-dev
 
 
 # Rather than installing it from an Ubuntu package, install buildbot-slave
