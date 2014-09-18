@@ -27,10 +27,17 @@ buildslave create-slave --log-count=20 --log-size=1000000 "$d" \
 [ -f "$d/buildbot.tac.new" ] && mv -v "$d/buildbot.tac.new" "$d/buildbot.tac"
 
 
-# Output buildslave log so it's easy to follow with docker logs, and
-# ask it to die together with this process (which will be buildslave
-# in a moment)
+echo "starting buildslave $SLAVE_NAME"
+buildslave start "$d"
+
+trap "echo stopping buildslave; buildslave stop '$d'; exit 0" EXIT TERM
+
+# Output buildbot log so it's easy to follow with docker logs, and ask
+# it to die together with this process so we don't have to kill it ourselves
 tail -F --pid=$$ "$d/twistd.log" &
 
-echo "starting buildslave $SLAVE_NAME"
-exec buildslave start --nodaemon "$d"
+while true
+do
+    wait
+done
+

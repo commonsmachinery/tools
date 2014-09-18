@@ -24,10 +24,16 @@ fi
 ls -l /master.cfg "$d/master.cfg" || true
 cp -uv /master.cfg "$d/master.cfg"
 
+echo "starting buildbot"
+buildbot start "$d"
+
+trap "echo stopping buildbot; buildbot stop '$d'; exit 0" EXIT TERM
 
 # Output buildbot log so it's easy to follow with docker logs, and ask
-# it to die together with this process (which will be buildbot in a moment)
+# it to die together with this process so we don't have to kill it ourselves
 tail -F --pid=$$ "$d/twistd.log" &
 
-echo "starting buildbot"
-exec buildbot start --nodaemon "$d"
+while true
+do
+    wait
+done
