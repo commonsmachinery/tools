@@ -22,4 +22,4 @@ want to enable the IRC status bot):
 Run a slave for building the catalog.  This uses the default name and
 password, but that can be changed with `-e` (see `slave/Dockerfile`):
 
-    sudo docker.io run --name=catalog-slave -d --link=buildmaster:master commonsmachinery/buildslave
+    sudo docker.io run --name=buildslave-catalog -d --link=buildmaster:master commonsmachinery/buildslave
