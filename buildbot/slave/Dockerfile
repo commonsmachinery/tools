@@ -29,14 +29,17 @@ RUN pip install buildbot-slave
 ADD run-slave.sh /
 RUN chmod 755 /run-slave.sh
 
-# Create the same user as the data image does
-RUN /usr/sbin/groupadd -g 3002 buildslave
-RUN /usr/sbin/useradd -u 3002 -g buildslave -d /build/slaves -M buildslave
+# Create a build user
+RUN /usr/sbin/groupadd buildslave
+RUN /usr/sbin/useradd -g buildslave -d /build/slaves -M buildslave
 
 # By default this is our catalog-slave, unless overridden with run -e
 ENV SLAVE_NAME catalog-slave
 ENV SLAVE_PASSWORD cm-build
 
-WORKDIR /
+RUN mkdir -p /build/slaves
+RUN chown buildslave.buildslave /build/slaves
+RUN chmod 755 /build /build/slaves
+
 USER buildslave
 ENTRYPOINT ["/run-slave.sh"]
