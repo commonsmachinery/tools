@@ -18,9 +18,9 @@ RUN apt-get install -y \
     automake \
     libtool \
     libzmq3 \
-    libzmq3-dev
+    libzmq3-dev \
     libkyotocabinet-dev \
-    kyotocabinet-util
+    kyotocabinet-utils
 
 
 # Rather than installing it from an Ubuntu package, install buildbot-slave
