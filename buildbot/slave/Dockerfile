@@ -19,6 +19,8 @@ RUN apt-get install -y \
     libtool \
     libzmq3 \
     libzmq3-dev
+    libkyotocabinet-dev \
+    kyotocabinet-util
 
 
 # Rather than installing it from an Ubuntu package, install buildbot-slave
